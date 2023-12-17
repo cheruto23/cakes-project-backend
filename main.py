@@ -1,5 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from schemas import CakeSchema
+from sqlalchemy.orm import Session
+from models import Cake
+from database import get_db
 app = FastAPI()
 
 @app.get('/')
@@ -11,8 +14,10 @@ def cakes():
     return []
 
 @app.get('/cakes/{cake_id}')
-def cake():
-    return []
+def cake(db: Session = Depends(get_db)):
+    cakes = db.query(cake).all()
+    return cakes
+    
 
 @app.post('/cakes')
 def create_cake(cakes : CakeSchema):
