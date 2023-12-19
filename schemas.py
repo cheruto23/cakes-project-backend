@@ -4,4 +4,4 @@ class CakeSchema(BaseModel):
     category : str
     flavor : str
     price : int
-    image : str
+    imageUrl : str
